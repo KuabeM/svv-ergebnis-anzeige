@@ -1,0 +1,7 @@
+[package]
+name = "svv-ergebnis-anzeige"
+version = "0.1.0"
+authors = ["Korbinian Maier <korbinian.maier@tum.de>"]
+edition = "2018"
+
+[dependencies]
