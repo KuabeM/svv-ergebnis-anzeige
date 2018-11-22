@@ -62,7 +62,7 @@ pub fn start() -> Result<()> {
     let res_disp = ResultDisplay::new(5, 1, 30);
     let disp_handle = Iron::new( res_disp.around(Box::new(ResultDisplay::answer )));
 
-    let _disp_listening = disp_handle.http("localhost:3000");
+    let _disp_listening = disp_handle.http("localhost:3000")?;
 
 
     Ok(())

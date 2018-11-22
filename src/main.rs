@@ -4,8 +4,6 @@ extern crate bytes;
 
 extern crate failure;
 
-use iron::prelude::*;
-use iron::status;
 
 mod web_backend;
 mod errors;
