@@ -1,5 +1,10 @@
 extern crate iron;
 extern crate bytes;
+extern crate router;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+extern crate serde_json;
 // extern crate rpi_led_matrix;
 
 extern crate failure;
