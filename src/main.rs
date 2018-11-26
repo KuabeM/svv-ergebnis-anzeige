@@ -5,6 +5,9 @@ extern crate router;
 extern crate serde_derive;
 extern crate serde;
 extern crate serde_json;
+extern crate iron_cors;
+extern crate mysql;
+
 // extern crate rpi_led_matrix;
 
 extern crate failure;
