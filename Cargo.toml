@@ -5,10 +5,13 @@ authors = ["Korbinian Maier <korbinian.maier@tum.de>"]
 edition = "2018"
 
 [dependencies]
-iron = "0.6.0"
-iron-cors = "0.8"
 mysql = "14.1.1"
-router = "0.6.0"
+
+actix = "0.7"
+actix-web = "0.7"
+futures = "0.1"
+json = "*"
+env_logger = "*"
 
 # rpi-led-matrix = "0.1.1"
 
