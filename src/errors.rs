@@ -19,3 +19,9 @@ pub enum BackendError {
 //         }
 //     }
 // }
+
+#[derive(Debug, Fail)]
+pub enum PanelError {
+    #[fail(display = "Failed to init panel")]
+    InitError,
+}

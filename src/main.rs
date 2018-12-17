@@ -11,12 +11,14 @@ extern crate actix;
 extern crate actix_web;
 extern crate env_logger;
 extern crate futures;
-// extern crate rpi_led_matrix;
+
+extern crate rpi_led_matrix;
 
 extern crate failure;
 
 mod errors;
 mod web_backend;
+mod panels;
 
 use self::errors::*;
 
