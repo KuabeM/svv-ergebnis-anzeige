@@ -8,6 +8,9 @@ pub type Result<X> = std::result::Result<X, Error>;
 pub enum BackendError {
     #[fail(display = "Failed to connect to database")]
     DatabaseError,
+
+    #[fail(display = "Failed to parse arguments")]
+    ArgumentError,
 }
 
 // impl error::ResponseError for BackendError {

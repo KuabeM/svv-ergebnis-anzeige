@@ -11,13 +11,16 @@ use self::minutes::Minutes;
 use self::score::Score;
 use self::teams::Teams;
 
-pub fn start() -> Result<()> {
+pub fn start(ip: String, port: String) -> Result<()> {
     let sys = actix::System::new("results");
 
     let db = MysqlDB::create_db("scoring".to_string())?;
     db.insert(0, "time".to_string(), 0)?;
     db.insert(1, "SVV".to_string(), 0)?;
     db.insert(2, "Gast".to_string(), 0)?;
+
+    // get address and port string
+    let addr = format!("{}:{}", ip, port);
 
     server::new(|| {
         App::new()
@@ -37,11 +40,11 @@ pub fn start() -> Result<()> {
                     .register()
             })
     })
-    .bind("192.168.0.41:3000")
+    .bind(&addr)
     .unwrap()
     .start();
 
-    println!("Started http server on 192.168.0.41:3000");
+    println!("Started http server on {}", &addr);
     let _ = sys.run();
 
     Ok(())
