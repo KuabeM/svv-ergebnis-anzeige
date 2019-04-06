@@ -12,15 +12,18 @@ extern crate actix_web;
 extern crate env_logger;
 extern crate futures;
 extern crate rpi_led_matrix;
-
+#[macro_use]
+extern crate common_failures;
+#[macro_use]
 extern crate failure;
 
 mod errors;
 mod web_backend;
+mod display_serve;
 
 use self::errors::*;
 
-fn main() -> Result<()> {
+fn run() -> Result<()> {
     ::std::env::set_var("RUST_LOG", "actix_web=info");
     env_logger::init();
 
@@ -28,3 +31,6 @@ fn main() -> Result<()> {
 
     Ok(())
 }
+
+
+quick_main!(run);
