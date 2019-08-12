@@ -19,7 +19,7 @@ pub fn start() -> Result<()> {
     db.insert(0, "time".to_string(), 0)?;
     db.insert(1, "SVV".to_string(), 0)?;
     db.insert(2, "Gast".to_string(), 0)?;
-    
+
     let ip_var = var("IP_ADDR").unwrap_or("localhost:3000".to_string());
 
     server::new(|| {

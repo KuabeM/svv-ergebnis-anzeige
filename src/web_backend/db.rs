@@ -17,7 +17,8 @@ pub struct DbRow {
 
 impl MysqlDB {
     pub fn create_db(name: String) -> Result<Self> {
-        let pool = Pool::new("mysql://svv_be:2018-RUSTY-VUE!@localhost/svv_backend").map_err(|e| {
+        let pool =
+            Pool::new("mysql://svv_be:2018-RUSTY-VUE!@localhost/svv_backend").map_err(|e| {
                 BackendError::DatabaseError.context(format!("Failed to get db instance: {:?}", e))
             })?;
         let stat = format!(r"DROP TABLE IF EXISTS {}", name);

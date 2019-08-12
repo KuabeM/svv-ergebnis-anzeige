@@ -17,9 +17,9 @@ extern crate common_failures;
 #[macro_use]
 extern crate failure;
 
+mod display_serve;
 mod errors;
 mod web_backend;
-mod display_serve;
 
 use self::errors::*;
 
@@ -31,6 +31,5 @@ fn run() -> Result<()> {
 
     Ok(())
 }
-
 
 quick_main!(run);
