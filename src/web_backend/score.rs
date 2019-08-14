@@ -3,6 +3,8 @@ use futures::Future;
 
 use super::db::*;
 
+use crate::display_serve::ScoreCanvas;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Score {
     score_home: u8,
@@ -18,6 +20,8 @@ impl Score {
                 let db = MysqlDB::db_instance("scoring".to_string()).unwrap();
                 db.update(1, "score".to_string(), val.score_home.clone())?;
                 db.update(2, "score".to_string(), val.score_away.clone())?;
+                let mut score_panel = ScoreCanvas::new()?;
+                score_panel.write_text(format!("{}", val.score_home));
 
                 Ok(HttpResponse::Ok().json(val)) // <- send response
             })
