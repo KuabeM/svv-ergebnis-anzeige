@@ -20,15 +20,18 @@ pub fn start() -> Result<()> {
     db.insert(1, "SVV".to_string(), 0)?;
     db.insert(2, "Gast".to_string(), 0)?;
 
-    let ip_var = var("IP_ADDR").unwrap_or("localhost:3000".to_string());
+    let ip_var = var("IP_ADDR").unwrap_or("localhost".to_string());
+    let port_var = var("PORT").unwrap_or("3000".to_string());
+    let url = format!("{}:{}", ip_var, port_var);
+    let allow_orig = format!("http://{}:8080", ip_var);
 
-    server::new(|| {
+    server::new(move || {
         App::new()
             .middleware(middleware::Logger::default())
             .configure(|app| {
                 Cors::for_app(app)
+                    .allowed_origin(allow_orig.as_str())
                     .allowed_origin("http://localhost:8080")
-                    .allowed_origin("http://192.168.0.104:8080")
                     .allowed_methods(vec!["POST"])
                     .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
                     .allowed_header(header::CONTENT_TYPE)
@@ -41,11 +44,11 @@ pub fn start() -> Result<()> {
                     .register()
             })
     })
-    .bind(&ip_var)
+    .bind(&url)
     .unwrap()
     .start();
 
-    println!("Started http server on {}", ip_var);
+    println!("Started http server on {}:{}", ip_var, port_var);
     let _ = sys.run();
 
     Ok(())

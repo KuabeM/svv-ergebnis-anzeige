@@ -1,4 +1,5 @@
 use mysql::Pool;
+use std::env::var;
 use std::fmt::Display;
 
 use super::super::errors::*;
@@ -17,10 +18,10 @@ pub struct DbRow {
 
 impl MysqlDB {
     pub fn create_db(name: String) -> Result<Self> {
-        let pool =
-            Pool::new("mysql://svv_be:2018-RUSTY-VUE!@localhost/svv_backend").map_err(|e| {
-                BackendError::DatabaseError.context(format!("Failed to get db instance: {:?}", e))
-            })?;
+        let cred = var("DB_CREDS").unwrap_or("Set_env_var_DB_CREDS:a".to_string());
+        let pool = Pool::new(format!("mysql://{}@localhost/svv_backend", cred)).map_err(|e| {
+            BackendError::DatabaseError.context(format!("Failed to get db instance: {:?}", e))
+        })?;
         let stat = format!(r"DROP TABLE IF EXISTS {}", name);
         pool.prep_exec(stat, ()).map_err(|e| {
             BackendError::DatabaseError.context(format!("Failed to create db: {:?}", e))
@@ -34,10 +35,10 @@ impl MysqlDB {
     }
 
     pub fn db_instance(name: String) -> Result<Self> {
-        let pool =
-            Pool::new("mysql://svv_be:2018-RUSTY-VUE!@localhost/svv_backend").map_err(|e| {
-                BackendError::DatabaseError.context(format!("Failed to get db instance: {:?}", e))
-            })?;
+        let cred = var("DB_CREDS").unwrap_or("Set_env_var_DB_CREDS:a".to_string());
+        let pool = Pool::new(format!("mysql://{}@localhost/svv_backend", cred)).map_err(|e| {
+            BackendError::DatabaseError.context(format!("Failed to get db instance: {:?}", e))
+        })?;
         Ok(MysqlDB { pool, name })
     }
 
